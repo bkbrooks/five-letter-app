@@ -1,0 +1,51 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
+}
+html body * {
+  max-height: 9999999em; /* to prevent font-boosting */
+}
+h1,
+h2,
+h3,
+h4,
+p,
+ul {
+    margin: 0;
+    padding: 0;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-weight: normal;
+  font-size: inherit;
+}
+a { color: inherit; }
+
+button {
+  display: block;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  font: inherit;
+  -webkit-font-smoothing: inherit;
+  letter-spacing: inherit;
+  background: none;
+  cursor: pointer;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  border: 0;
+}
