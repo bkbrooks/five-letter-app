@@ -32,8 +32,6 @@ const authConfig = {
   }
 } 
 
-console.log('react uri')
-console.log(process.env.REACT_APP_API_URI)
 const urlprefix = process.env.REACT_APP_API_URI || 'http://localhost:3001'
 
 const createUrl = (endpoint) => {

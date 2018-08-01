@@ -30,7 +30,7 @@ export function startNewGame() {
   return (dispatch) => {
     dispatch(fetchStarted())
 
-    return apiNoAuth.post(`/games`, { test: 'test' })
+    return apiNoAuth.post(`/games`)
       .then(parseResponse)
       .then(response => {
         const game = response.data
