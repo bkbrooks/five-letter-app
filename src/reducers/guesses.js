@@ -6,10 +6,8 @@ function setGuesses(state, guesses = initialState) {
   return guesses
 }
 
-function addGuess(state, guess, correctLetters, correctPlacement) {
-  return state.push(
-    guess.set('correctLetters', correctLetters).set('correctPlacement', correctPlacement)
-  )
+function addGuess(state, guess) {
+  return state.push(guess)
 }
 
 export default function reducer(state = initialState, action = {}) {
@@ -17,7 +15,7 @@ export default function reducer(state = initialState, action = {}) {
     case 'SET_GUESSES':
       return setGuesses(state, action.guesses)
     case 'ADD_GUESS':
-      return addGuess(state, action.guess, action.correctLetters, action.correctPlacement)
+      return addGuess(state, action.guess)
     default:
       return state
   }

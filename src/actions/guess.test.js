@@ -55,18 +55,13 @@ describe('actions - guess:', () => {
       guess = Guess.build().toJS()
     })
 
-    const correctLetters = 2
-    const correctPlacement = 1
-
     it('adds a guess', () => {
       const addGuessAction = {
         type: 'ADD_GUESS',
-        guess,
-        correctLetters,
-        correctPlacement,
+        guess
       }
 
-      expect(addGuess(guess, correctLetters, correctPlacement)).to.deep.equal(addGuessAction)
+      expect(addGuess(guess)).to.deep.equal(addGuessAction)
     })
   })
 
@@ -85,13 +80,22 @@ describe('actions - guess:', () => {
         mock.onPost(`${process.env.REACT_APP_API_URI}/games/${game.get('id')}/make_guess`, {
           text: guess.get('text')
         }).reply(200, {
+          id: guess.get('id'),
+          text: guess.get('text'),
           correct_letters: correctLetters,
           correct_placement: correctPlacement,
         })
 
+        const responseGuess = fromJS({
+          id: guess.get('id'),
+          text: guess.get('text'),
+          correctLetters,
+          correctPlacement,
+        })
+
         const expectedActions = [
           fetchStarted,
-          addGuess(guess, correctLetters, correctPlacement),
+          addGuess(responseGuess),
           fetchSuccess,
         ]
 

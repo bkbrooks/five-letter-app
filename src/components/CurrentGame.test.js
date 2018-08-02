@@ -2,6 +2,7 @@ import React from 'react'
 import { expect } from 'chai'
 import { shallow } from 'enzyme'
 import { fromJS } from 'immutable'
+import sinon from 'sinon'
 
 import CurrentGame from './CurrentGame'
 import {
@@ -19,6 +20,7 @@ describe('<CurrentGame> component', () => {
     props = {
       game,
       guesses,
+      makeGuess: sinon.spy()
     }
 
     wrapper = shallow(<CurrentGame {...props} />)

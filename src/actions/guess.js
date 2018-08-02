@@ -13,12 +13,10 @@ export const setGuesses = (guesses) => (
   }
 )
 
-export const addGuess = (guess, correctLetters, correctPlacement) => (
+export const addGuess = (guess) => (
   {
     type: 'ADD_GUESS',
-    guess,
-    correctLetters,
-    correctPlacement
+    guess
   }
 )
 
@@ -31,7 +29,14 @@ export function makeGuess(game, guess) {
       .then(response => {
         const result = response.data
 
-        dispatch(addGuess(guess, result.correct_letters, result.correct_placement))
+        const responseGuess = fromJS({
+          id: result.id,
+          text: result.text,
+          correctLetters: result.correct_letters,
+          correctPlacement: result.correct_placement,
+        })
+
+        dispatch(addGuess(responseGuess))
 
         dispatch(fetchSuccess())
 

@@ -33,9 +33,7 @@ describe('reducer - Guesses', () => {
 
     action = {
       type: 'ADD_GUESS',
-      guess,
-      correctLetters: guess.get('correctLetters'),
-      correctPlacement: guess.get('correctPlacement')
+      guess
     }
     nextState = reducer(initialState, action)
 

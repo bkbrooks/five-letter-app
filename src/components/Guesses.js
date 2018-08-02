@@ -7,7 +7,7 @@ const Guesses = (props) => {
   } = props
 
   const drawGuess = (guess) => (
-    <li className="guess" key={guess.get('id')}>{guess.get('text')}</li>
+    <li className="guess" key={guess.get('id')}>{guess.get('text')} {guess.get('correctLetters')}</li>
   )
 
   return (
