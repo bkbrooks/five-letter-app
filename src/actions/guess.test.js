@@ -66,42 +66,64 @@ describe('actions - guess:', () => {
   })
 
   describe('makeGuess', () => {
-    describe('successful requests', () => {
-      it('posts new guess', () => {
-        const game = Game.build()
-        const guess = Guess.build()
+    let game
+    let guess
 
-        const fetchStarted = { type: 'FETCH_STARTED' }
-        const fetchSuccess = { type: 'FETCH_SUCCESS' }
+    beforeEach(() => {
+      game = Game.build()
+      guess = Guess.build()
+    })
 
-        const correctLetters = 2
-        const correctPlacement = 1
+    it('posts new guess', () => {
+      const fetchStarted = { type: 'FETCH_STARTED' }
+      const fetchSuccess = { type: 'FETCH_SUCCESS' }
 
-        mock.onPost(`${process.env.REACT_APP_API_URI}/games/${game.get('id')}/make_guess`, {
-          text: guess.get('text')
-        }).reply(200, {
-          id: guess.get('id'),
-          text: guess.get('text'),
-          correct_letters: correctLetters,
-          correct_placement: correctPlacement,
-        })
+      const correctLetters = 2
+      const correctPlacement = 1
 
-        const responseGuess = fromJS({
-          id: guess.get('id'),
-          text: guess.get('text'),
-          correctLetters,
-          correctPlacement,
-        })
-
-        const expectedActions = [
-          fetchStarted,
-          addGuess(responseGuess),
-          fetchSuccess,
-        ]
-
-        return store.dispatch(makeGuess(game, guess))
-          .then(() => expect(store.getActions()).to.deep.equal(expectedActions))
+      mock.onPost(`${process.env.REACT_APP_API_URI}/games/${game.get('id')}/make_guess`, {
+        text: guess.get('text')
+      }).reply(200, {
+        id: guess.get('id'),
+        text: guess.get('text'),
+        word_exists: true,
+        correct_letters: correctLetters,
+        correct_placement: correctPlacement,
       })
+
+      const responseGuess = fromJS({
+        id: guess.get('id'),
+        text: guess.get('text'),
+        wordExists: true,
+        correctLetters,
+        correctPlacement,
+      })
+
+      const expectedActions = [
+        fetchStarted,
+        addGuess(responseGuess),
+        fetchSuccess,
+      ]
+
+      return store.dispatch(makeGuess(game, guess))
+        .then(() => expect(store.getActions()).to.deep.equal(expectedActions))
+    })
+
+    it('handles error on failed request', () => {
+      const fetchStarted = { type: 'FETCH_STARTED' }
+      const fetchError = { type: 'FETCH_ERROR' }
+
+      mock.onPost(`${process.env.REACT_APP_API_URI}/games/${game.get('id')}/make_guess`, {
+        text: guess.get('text')
+      }).reply(500)
+
+      const expectedActions = [
+        fetchStarted,
+        fetchError,
+      ]
+
+      return store.dispatch(makeGuess(game, guess))
+        .then(() => expect(store.getActions()).to.deep.equal(expectedActions))
     })
   })
 })

@@ -32,10 +32,10 @@ class WordField extends Component {
 
   render() {
     return (
-      <div>
+      <form className="word-field" onSubmit={this.submitGuess}>
         <input type="text" value={this.state.guessText} onChange={this.changeGuess} />
-        <button onClick={this.submitGuess}>Submit</button>
-      </div>
+        <input type="submit" value="Submit" />
+      </form>
     )
   }
 }

@@ -32,6 +32,7 @@ export function makeGuess(game, guess) {
         const responseGuess = fromJS({
           id: result.id,
           text: result.text,
+          wordExists: result.word_exists,
           correctLetters: result.correct_letters,
           correctPlacement: result.correct_placement,
         })
@@ -41,6 +42,9 @@ export function makeGuess(game, guess) {
         dispatch(fetchSuccess())
 
         return response
+      })
+      .catch(e => {
+        dispatch(fetchError(e))
       })
   }
 }

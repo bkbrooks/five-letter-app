@@ -23,6 +23,10 @@ describe('<WordField> component', () => {
     wrapper = shallow(<WordField {...props} />)
   })
 
+  it('renders a word-field wrapper', () => {
+    expect(wrapper.first().hasClass('word-field')).to.equal(true)
+  })
+
   it('renders an input field', () => {
     expect(wrapper.find('input')).to.have.length(1)
   })

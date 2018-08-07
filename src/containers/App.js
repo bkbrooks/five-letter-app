@@ -4,6 +4,9 @@ import { connect } from 'react-redux'
 import { startNewGame } from '../actions/game'
 import { makeGuess } from '../actions/guess'
 
+import '../styles/reset.css'
+import '../styles/css/main.css'
+
 import App from '../components/App'
 
 const mapStateToProps = (state, ownProps) => {

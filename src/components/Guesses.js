@@ -6,8 +6,19 @@ const Guesses = (props) => {
     guesses,
   } = props
 
+  const drawResult = (guess) => {
+    if (guess.get('wordExists')) {
+      return <span className="result number">{guess.get('correctLetters')}</span>
+    }
+
+    return <span className="result error">x</span>
+  }
+
   const drawGuess = (guess) => (
-    <li className="guess" key={guess.get('id')}>{guess.get('text')} {guess.get('correctLetters')}</li>
+    <li className="guess" key={guess.get('id')}>
+      <span className="word">{guess.get('text')}</span>
+      {drawResult(guess)}
+    </li>
   )
 
   return (
