@@ -42,6 +42,10 @@ describe('<Guesses> component', () => {
     expect(wrapper.find('li.guess .word').at(0).text()).to.equal(props.guesses.get(0).get('text'))
   })
 
+  it('renders a different letter for each letter of a word', () => {
+    
+  })
+
   it('renders the number of correct letters for result of a guess', () => {
     expect(wrapper.find('li.guess .result.number').at(0).text()).to.equal('2')
   })
